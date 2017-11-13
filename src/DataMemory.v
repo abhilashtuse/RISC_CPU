@@ -1,7 +1,7 @@
-module DataMemory (DOut, AddrIn, Din, WE);
+module DataMemory (DOut, AddrIn, Din, WE, reset);
   input [31:0] AddrIn;
   input [31:0] Din;
-  input WE;
+  input WE, reset;
   output [31:0] DOut;
 
   reg [31:0] DataMemory [31:0]; // to be confirmed
@@ -9,9 +9,11 @@ module DataMemory (DOut, AddrIn, Din, WE);
 
   always @*
     begin
-      if(WE==1)
+    if(reset == 1)
+        DOut = 0;
+    else if(WE==1)
         DataMemory[AddrIn] = Din;
-      else
+    else
         DOut = DataMemory[AddrIn];
     end
 

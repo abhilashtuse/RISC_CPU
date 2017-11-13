@@ -11,14 +11,13 @@ initial
     //PcNext = 0;
 end
 
-always @(posedge clk)
+always @(posedge clk or reset)
   begin
-    if(reset==1) begin
-        PcOut <= 0;
-        PcIn <= 0;
-        //PcNext <= 0;
-    end
-    else begin
+  if(reset == 1) begin
+      PcOut <= 0;
+      PcIn <= 0;
+  end
+  else if(reset==0) begin
         PcOut <= PcIn;
         PcIn <= PcIn + 1;
         //PcNext <= PcIn + 1;

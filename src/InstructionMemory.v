@@ -1,8 +1,9 @@
-module InstructionMemory (DOut, AddrIn);
+module InstructionMemory (DOut, AddrIn, clk, reset);
+  input reset, clk;
   input [31:0] AddrIn;
   output [31:0] DOut;
 
-  reg [31:0] MemoryA [2:0];
+  reg [31:0] MemoryA [31:0];
   reg [31:0] DOut;
 
 
@@ -13,7 +14,10 @@ module InstructionMemory (DOut, AddrIn);
 
   always @*
     begin
-      DOut = MemoryA[AddrIn];
+        if(reset == 1)
+            DOut = 0;//32'hffffffff;
+        else
+            DOut = MemoryA[AddrIn];
     end
 
 endmodule

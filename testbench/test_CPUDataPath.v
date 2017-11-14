@@ -2,7 +2,7 @@
 module test_CPU_DataPath;
     reg clk, reset;
 
-    CPU_DataPath cpu (.clk(clk), .reset(reset));
+    CPUDataPath cpu (.clk(clk), .reset(reset));
 
     initial
         begin

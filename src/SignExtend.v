@@ -1,4 +1,4 @@
-module sign_extend(sOut32, sIn16, reset);
+module SignExtend(sOut32, sIn16, reset);
     output [31:0] sOut32;
     input [15:0] sIn16;
     input reset;

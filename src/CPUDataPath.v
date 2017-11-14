@@ -1,9 +1,9 @@
 //`timescale 1ns / 1ps
-module CPU_DataPath(clk, reset);
+module CPUDataPath(clk, reset);
     input clk, reset;
 
     wire [31:0] PcOut, PcNext, PcIn, DOut1, DOut2, IR, Reg1, Reg2, AOut, D5, D7, sOut32;
-    wire WE;
+    wire RF_WE, DM_WE;
     reg [31:0] A, B, Din, AImm, DAddIn, Q;
     reg [15:0] Imm;
     reg [5:0] OPC, Q2;
@@ -12,11 +12,12 @@ module CPU_DataPath(clk, reset);
 
     ProgramCounter pc (.PcOut(PcOut), .PcNext(PcNext), .clk(clk), .PcIn(PcIn), .reset(reset));
     InstructionMemory im (.DOut(IR), .AddrIn(PcOut), .clk(clk), .reset(reset));
-    sign_extend se(.sOut32(sOut32),.sIn16(Imm), .reset(reset));
+    SignExtend se(.sOut32(sOut32),.sIn16(Imm), .reset(reset));
     RegisterFile rf(.DOut1(Reg1),.DOut2(Reg2), .AddrIn1(RS1),
     	          .AddrIn2(RS2),.AddrIn3(Q7),.Din(Din), .WE(WE), .clk(clk), .reset(reset));
     ALU alu(.result(AOut), .a(A), .b(B), .Imm(AImm), .alu_control(Q2), .reset(reset));
     DataMemory dm(.DOut(), .AddrIn(DAddIn), .Din(Q), .WE(WE), .reset(reset));
+    ControlUnit cu(.RF_WE(RF_WE), .DM_WE(DM_WE), .OPC(OPC),.reset(reset), .clk(clk));
 
     always @(posedge clk or reset)
         begin

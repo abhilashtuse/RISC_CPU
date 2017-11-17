@@ -16,9 +16,9 @@ module CPUDataPath(clk, reset);
     SignExtend16 se16(.sOut16(Imm_SE),.sIn16(Imm), .reset(reset));
     SignExtend27 se27(.sOut27(RS2_SE), .sIn5(RS2), .reset(reset)); //branch instruction
     RegisterFile rf(.DOut1(Reg1),.DOut2(Reg2), .AddrIn1(RS1),
-    	          .AddrIn2(RS2),.AddrIn3(Q14),.Din(RFDin), .WE(WE), .clk(clk), .reset(reset));
+    	          .AddrIn2(RS2),.AddrIn3(Q14),.Din(RFDin), .WE(RF_WE), .clk(clk), .reset(reset));
     ALU alu(.result(AOut), .a(Q2), .b(Q3), .Imm(Q4), .alu_control(Q1), .reset(reset));
-    DataMemory dm(.DOut(DMemOut), .AddrIn(Q8), .Din(Q7), .WE(WE), .reset(reset), .clk(clk));
+    DataMemory dm(.DOut(DMemOut), .AddrIn(Q8), .Din(Q7), .WE(DM_WE), .reset(reset), .clk(clk));
     ControlUnit cu(.RF_WE(RF_WE), .DM_WE(DM_WE),.Q6(Q6), .Q10(Q10), .reset(reset), .clk(clk));
 
     always @*
@@ -69,7 +69,7 @@ module CPUDataPath(clk, reset);
             end
             if(reset == 0) begin
             //RF stage
-                OPC <= IR [31:26];
+                OPC <= IR [31:26];//$display("opc",OPC);
                 RS1 <= IR [25:21];
                 RS2 <= IR [20:16];
                 RD <= IR [15:11];
@@ -78,7 +78,7 @@ module CPUDataPath(clk, reset);
                 Q0 <= PcOut;
 
             //ALU stage
-                Q1 <= OPC;
+                Q1 <= OPC;//$display("Q1",Q1);
                 Q2 <= Reg1;
                 //$display(2);
                 Q3 <= Reg2;
@@ -96,7 +96,7 @@ module CPUDataPath(clk, reset);
 
 
             //DM stage
-                Q6 <= Q1;
+                Q6 <= Q1;//$display("Q6",Q6);
                 if(Q1 == 16)
                     Q7 <= Q4;
                 else
@@ -105,7 +105,7 @@ module CPUDataPath(clk, reset);
                 Q9 <= Q5;
 
             //WB stage
-                //Q10 <= Q6;
+                Q10 <= Q6;//$display("Q10",Q10);
                 //Q11 <= Q7;
                 //Q12 <= DMemOut;
                 Q13 <= Q8;
@@ -152,7 +152,7 @@ module CPUDataPath(clk, reset);
                     17,18,19,20: begin
                                 RFDin <= Q8; //SLI/SRI/ADDI/SUBI
                             end
-                    21,22:;//Jump and bra remaining
+                    21,22:;// bra/Jump
                 endcase
 
             end

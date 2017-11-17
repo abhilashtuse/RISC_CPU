@@ -1,4 +1,4 @@
-module ControlUnit(RF_WE, DM_WE, Q6,Q10,reset, clk);
+module ControlUnit(RF_WE, DM_WE, Q6, Q10,reset, clk);
     input[5:0] Q6, Q10;
 //    input[31:0] ;
     input reset, clk;
@@ -18,15 +18,11 @@ module ControlUnit(RF_WE, DM_WE, Q6,Q10,reset, clk);
         end
         else begin
             if(reset == 0) begin
-                case(Q6)
-                    1,2: begin
-                            //$display(Q10);
-                            case (Q10)
-                                1 : RF_WE <= 1; //ADD
-                                2 : RF_WE <= 1; //SUB
-                                3 : DM_WE <= 1; //Store
-                            endcase
+                case(Q10)
+                    0: begin
+                            DM_WE <= 0; RF_WE <= 0; //NOP
                         end
+                    1, 2, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20: RF_WE <= 1;
                     3: begin
                             DM_WE <= 1; //Store
                         end

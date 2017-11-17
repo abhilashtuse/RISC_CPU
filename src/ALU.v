@@ -19,8 +19,23 @@ begin
         1: result = a + b; //ADD
         2: result = a - b; // SUB
         3: result = b + Imm; //Store
-        //4: result = a + Imm; //Load
-        //5: ; //Move
+        4: result = a + Imm; //Load
+        5: ; //Move
+        6: result = a - b;// SGE
+        7: result = b - a;// SLE
+        8: result = b - a;// SGT
+        9: result = a - b;// SLT
+        10: result = a - b;// SQE
+        11: result = a - b;// SNE
+        12: result = a & b;// AND
+        13: result = a | b;// OR
+        14: result = a ^ b;// XOR
+        15: result = ~a;// NOT
+        16: ;//MOVEI
+        17: result = a << Imm;// SLI
+        18: result = a >> Imm;// SRI
+        19: result = a + Imm; //ADDI
+        20: result = a - Imm; // SUBI
         //3'b011: result = a<<b;
         //3'b100: result = a>>b;
         //3'b101: result = a & b;

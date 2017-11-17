@@ -1,8 +1,8 @@
-module ProgramCounter(PcOut, PcNext, clk, PcIn, reset);
-  input clk, reset;
-  //input [31:0] PcIn;
-  output [31:0] PcOut, PcNext, PcIn;
-  reg [31:0] PcOut, PcNext, PcIn;
+module ProgramCounter(PcOut, PcBra, clk, PcIn, reset, select);
+  input clk, reset, select;
+  input [31:0] PcBra;
+  output [31:0] PcOut, PcIn;
+  reg [31:0] PcOut, PcIn;
 
 initial
   begin
@@ -19,8 +19,10 @@ always @(posedge clk or reset)
   end
   else if(reset==0) begin
         PcOut <= PcIn;
-        PcIn <= PcIn + 1;
-        //PcNext <= PcIn + 1;
+        if(select)
+            PcIn <= PcBra;
+        else
+            PcIn <= PcIn + 1;
     end
   end
 endmodule

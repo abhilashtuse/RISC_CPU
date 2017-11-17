@@ -20,7 +20,7 @@ module test_CPU_DataPath;
 
             reset = 1;
             #2 reset = 0;
-            repeat(20)
+            repeat(70)
               #1;
             $finish;
         end

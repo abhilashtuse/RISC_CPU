@@ -9,7 +9,7 @@ module InstructionMemory (DOut, AddrIn, clk, reset);
 
   initial
   begin
-    $readmemb("instruction_mem.txt", MemoryA, 0, 2);
+    $readmemb("instruction_mem.txt", MemoryA, 0, 20);
   end
 
   always @*

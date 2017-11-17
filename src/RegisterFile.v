@@ -11,10 +11,10 @@ module RegisterFile (DOut1,DOut2, AddrIn1,AddrIn2,AddrIn3,Din, WE, clk, reset);
   begin
     DOut1 = 0;
     DOut2 = 0;
-    $readmemb("reg_file.txt", RegisterMemory, 0, 5);
+    $readmemb("reg_file.txt", RegisterMemory, 0, 10);
   end
 
-  always @(posedge clk or reset)
+  always @(posedge clk or posedge reset)
     begin
         if(reset == 1) begin
             DOut1 = 0;
@@ -24,7 +24,7 @@ module RegisterFile (DOut1,DOut2, AddrIn1,AddrIn2,AddrIn3,Din, WE, clk, reset);
             RegisterMemory[AddrIn3] = Din;
     end
 
-  always @(negedge clk or reset)
+  always @(negedge clk or posedge reset)
     begin
         if(reset==0) begin
             DOut1 = RegisterMemory[AddrIn1];

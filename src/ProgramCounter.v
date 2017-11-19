@@ -11,6 +11,11 @@ initial
     //PcNext = 0;
 end
 
+always @*
+    begin
+    if(select)
+        PcIn = PcBra;
+    end
 always @(posedge clk or reset)
   begin
   if(reset == 1) begin
@@ -19,10 +24,7 @@ always @(posedge clk or reset)
   end
   else if(reset==0) begin
         PcOut <= PcIn;
-        if(select)
-            PcIn <= PcBra;
-        else
-            PcIn <= PcIn + 1;
+        PcIn <= PcIn + 1;
     end
   end
 endmodule

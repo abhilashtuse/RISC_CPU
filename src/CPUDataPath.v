@@ -45,6 +45,7 @@ module CPUDataPath(clk, reset);
                 RS2 <= 0;
                 RD <= 0;
                 Imm <= 0;
+                RFDin <= 0;
 
             //ALU stage
                 Q1 <= 0;
@@ -65,7 +66,6 @@ module CPUDataPath(clk, reset);
                 Q12 <= 0;
                 Q13 <= 0;
                 Q14 <= 0;
-
             end
             if(reset == 0) begin
             //RF stage

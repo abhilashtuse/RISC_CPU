@@ -20,8 +20,11 @@ module RegisterFile (DOut1,DOut2, AddrIn1,AddrIn2,AddrIn3,Din, WE, clk, reset);
             DOut1 = 0;
             DOut2 = 0;
         end
-        if(WE == 1 && reset == 0)
+        if(WE == 1 && reset == 0) begin
             RegisterMemory[AddrIn3] = Din;
+            //$display("Written :", RegisterMemory[AddrIn3]);
+        end
+
     end
 
   always @(negedge clk or posedge reset)

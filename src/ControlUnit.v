@@ -18,14 +18,15 @@ module ControlUnit(RF_WE, DM_WE, Q6, Q10,reset, clk);
         end
         else begin
             if(reset == 0) begin
+                case(Q6)
+                    0: DM_WE <= 0; //NOP
+                    3: DM_WE <= 1; //Store
+                    default: DM_WE <= 0; // BRA
+                endcase
                 case(Q10)
-                    0: begin
-                            DM_WE <= 0; RF_WE <= 0; //NOP
-                        end
+                    0: RF_WE <= 0; //NOP
                     1, 2, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20: RF_WE <= 1;
-                    3: begin
-                            DM_WE <= 1; //Store
-                        end
+                    default: RF_WE <= 0; // BRA
                 endcase
             end
         end

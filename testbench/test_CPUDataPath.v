@@ -1,4 +1,3 @@
-//`timescale 1ns / 1ps
 module test_CPU_DataPath;
     reg clk, reset;
 

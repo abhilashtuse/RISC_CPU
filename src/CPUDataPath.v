@@ -1,7 +1,7 @@
 module CPUDataPath(clk, reset);
     input clk, reset;
 
-    wire [31:0] PcOut, PcIn, DOut1, DOut2, IR, Reg1, Reg2, AOut, D5, D7, Imm_SE, RS2_SE, DMemOut;
+    wire [31:0] PcOut, DOut1, DOut2, IR, Reg1, Reg2, AOut, D5, D7, Imm_SE, RS2_SE, DMemOut;
     wire RF_WE, DM_WE;
     reg [31:0] Din, Q0, Q2, Q3, Q4, Q7, Q8, Q11, Q12, Q13, RFDin, PcBra, JImm;
     reg [15:0] Imm;
@@ -10,14 +10,14 @@ module CPUDataPath(clk, reset);
     reg sign_bit, select;
     parameter delay = 1;
 
-    ProgramCounter pc (.PcOut(PcOut), .PcBra(PcBra), .clk(clk), .PcIn(PcIn), .reset(reset) , .select(select));
-    InstructionMemory im (.DOut(IR), .AddrIn(PcOut), .clk(clk), .reset(reset));
+    ProgramCounter pc (.PcOut(PcOut), .PcBra(PcBra), .clk(clk), .reset(reset), .select(select));
+    InstructionMemory im (.DOut(IR), .AddrIn(PcOut), .reset(reset));
     SignExtend16 se16(.sOut16(Imm_SE),.sIn16(Imm), .reset(reset));
     SignExtend27 se27(.sOut27(RS2_SE), .sIn5(RS2), .reset(reset)); //branch instruction
-    RegisterFile rf(.DOut1(Reg1),.DOut2(Reg2), .AddrIn1(RS1),
-    	          .AddrIn2(RS2),.AddrIn3(Q14),.Din(RFDin), .WE(RF_WE), .clk(clk), .reset(reset));
-    ALU alu(.result(AOut), .a(Q2), .b(Q3), .Imm(Q4), .alu_control(Q1), .reset(reset));
-    DataMemory dm(.DOut(DMemOut), .AddrIn(Q8), .Din(Q7), .WE(DM_WE), .reset(reset), .clk(clk));
+    RegisterFile rf(.DOut1(Reg1), .DOut2(Reg2), .Ain1(RS1), .Ain2(RS2), .Ain3(Q14), .Din(RFDin),
+                    .WE(RF_WE), .clk(clk), .reset(reset));
+    ALU alu(.result(AOut), .a(Q2), .b(Q3), .Imm(Q4), .OPC(Q1), .reset(reset));
+    DataMemory dm(.DOut(DMemOut), .Ain(Q8), .Din(Q7), .WE(DM_WE), .reset(reset), .clk(clk));
     ControlUnit cu(.RF_WE(RF_WE), .DM_WE(DM_WE),.Q6(Q6), .Q10(Q10), .reset(reset), .clk(clk));
 
     always @*
@@ -28,12 +28,12 @@ module CPUDataPath(clk, reset);
                 select = 1;
                 PcBra = Q0 + Imm_SE;
             end
-        else
-            select = 0;
-        if(OPC == 22) begin
+        else if(OPC == 22) begin
             select = 1;
             PcBra = JImm;
         end
+        else
+            select = 0;
     end
     always @(posedge clk or reset)
         begin

@@ -1,5 +1,5 @@
-module DataMemory (DOut, AddrIn, Din, WE, reset, clk);
-  input [31:0] AddrIn;
+module DataMemory (DOut, Ain, Din, WE, reset, clk);
+  input [31:0] Ain;
   input [31:0] Din;
   input WE, reset, clk;
   output [31:0] DOut;
@@ -18,13 +18,13 @@ module DataMemory (DOut, AddrIn, Din, WE, reset, clk);
     if(reset == 1)
         DOut = 0;
     else if(WE == 1 && reset == 0)
-        DataMemory[AddrIn] = Din;
+        DataMemory[Ain] = Din;
     end
 
     always @(negedge clk or posedge reset)
       begin
           if(reset == 0) begin
-              DOut = DataMemory[AddrIn];
+              DOut = DataMemory[Ain];
           end
       end
 endmodule

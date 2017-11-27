@@ -1,4 +1,4 @@
-module ProgramCounter(PcOut, PcBra, clk, PcIn, reset, select);
+module ProgramCounter(PcOut, PcBra, clk, reset, select);
   input clk, reset, select;
   input [31:0] PcBra;
   output [31:0] PcOut, PcIn;

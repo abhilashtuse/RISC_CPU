@@ -1,5 +1,5 @@
-module RegisterFile (DOut1,DOut2, AddrIn1,AddrIn2,AddrIn3,Din, WE, clk, reset);
-  input [4:0] AddrIn1,AddrIn2,AddrIn3;
+module RegisterFile (DOut1,DOut2, Ain1,Ain2,Ain3,Din, WE, clk, reset);
+  input [4:0] Ain1,Ain2,Ain3;
   input [31:0] Din;
   input WE, clk, reset;
   output [31:0] DOut1,DOut2;
@@ -21,8 +21,8 @@ module RegisterFile (DOut1,DOut2, AddrIn1,AddrIn2,AddrIn3,Din, WE, clk, reset);
             DOut2 = 0;
         end
         if(WE == 1 && reset == 0) begin
-            RegisterMemory[AddrIn3] = Din;
-            //$display("Written :", RegisterMemory[AddrIn3]);
+            RegisterMemory[Ain3] = Din;
+            //$display("Written :", RegisterMemory[Ain3]);
         end
 
     end
@@ -30,8 +30,8 @@ module RegisterFile (DOut1,DOut2, AddrIn1,AddrIn2,AddrIn3,Din, WE, clk, reset);
   always @(negedge clk or posedge reset)
     begin
         if(reset==0) begin
-            DOut1 = RegisterMemory[AddrIn1];
-            DOut2 = RegisterMemory[AddrIn2];
+            DOut1 = RegisterMemory[Ain1];
+            DOut2 = RegisterMemory[Ain2];
         end
     end
 endmodule

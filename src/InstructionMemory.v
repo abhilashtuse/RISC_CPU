@@ -1,5 +1,5 @@
-module InstructionMemory (DOut, AddrIn, clk, reset);
-  input reset, clk;
+module InstructionMemory (DOut, AddrIn, reset);
+  input reset;
   input [31:0] AddrIn;
   output [31:0] DOut;
 

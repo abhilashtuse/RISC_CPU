@@ -1,8 +1,8 @@
-module ALU(result, a, b, Imm, alu_control, reset);
+module ALU(result, a, b, Imm, OPC, reset);
   input [31:0] a;
   input [31:0] b;
   input [31:0] Imm;
-  input [5:0] alu_control;
+  input [5:0] OPC;
   input reset;
   output [31:0] result;
   reg [31:0] result;
@@ -14,7 +14,7 @@ begin
     if(reset == 1)
         result = 0;
     else begin
-        case(alu_control)
+        case(OPC)
         0: ;//NOP
         1: result = a + b; //ADD
         2: result = a - b; // SUB

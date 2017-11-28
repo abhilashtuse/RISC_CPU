@@ -23,7 +23,7 @@ module DataMemory (DOut, Ain, Din, WE, reset, clk);
 
     always @(negedge clk or posedge reset)
       begin
-          if(reset == 0) begin
+          if(reset == 0 && (Ain >= 0 && Ain <= 205)) begin
               DOut = DataMemory[Ain];
           end
       end

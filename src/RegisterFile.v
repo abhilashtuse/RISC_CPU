@@ -29,7 +29,7 @@ module RegisterFile (DOut1,DOut2, Ain1,Ain2,Ain3,Din, WE, clk, reset);
 
   always @(negedge clk or posedge reset)
     begin
-        if(reset==0) begin
+        if(reset==0 && (Ain1 >= 0 && Ain1 <= 31) && (Ain2 >= 0 && Ain2 <= 31)) begin
             DOut1 = RegisterMemory[Ain1];
             DOut2 = RegisterMemory[Ain2];
         end

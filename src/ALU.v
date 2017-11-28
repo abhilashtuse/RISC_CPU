@@ -6,6 +6,7 @@ module ALU(result, a, b, Imm, OPC, reset);
   input reset;
   output [31:0] result;
   reg [31:0] result;
+  integer i;
 // output zero
 
 
@@ -36,13 +37,13 @@ begin
         18: result = a >> Imm;// SRI
         19: result = a + Imm; //ADDI
         20: result = a - Imm; // SUBI
-        //3'b011: result = a<<b;
-        //3'b100: result = a>>b;
-        //3'b101: result = a & b;
-        //3'b110: result = a | b;
-        //3'b111: begin if (a<b) result = 16'd1;
-        //  else result = 16'd0;
-        //end
+        23: begin
+        FloatingPointAdder.FPAdder(a, b, result);
+        /*$display("\nFAdd Result in ALU:");
+        for (i = 31; i >= 0; i=i-1)
+            $write(result[i]);*/
+        end
+        24: FloatingPointMultiplier.FPMultiplier(a, b, result);
         default:result = a + b;
         endcase
     end

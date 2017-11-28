@@ -1,5 +1,5 @@
-module FloatingPointMultiplier(result, a, b, clk);
-    input clk;
+module FloatingPointMultiplier();
+task FPMultiplier;
     input[31:0] a, b;
     output [31:0] result;
 
@@ -12,7 +12,6 @@ module FloatingPointMultiplier(result, a, b, clk);
     reg[47:0] frac_mul;
     reg[24:0] frac_mul_trunc;
 
-    always @(posedge clk)
     begin
         frac1[23] = 1;
         frac2[23] = 1;
@@ -54,4 +53,5 @@ module FloatingPointMultiplier(result, a, b, clk);
             result[22:0] = frac_mul_trunc[23:1];
         end
     end
+endtask
 endmodule

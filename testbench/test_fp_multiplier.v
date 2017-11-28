@@ -1,15 +1,6 @@
+//`include "../src/FloatingPointMultiplier.v"
 module test_fp_multiplier;
-    reg clk;
-
-    reg[31:0] a,b;
-    wire[31:0] result;
-    FloatingPointMultiplier fp_multiplier (.clk(clk), .a(a), .b(b), .result(result));
-
-    initial
-        begin
-            clk = 1;
-            forever #1 clk= !clk;
-        end
+    reg[31:0] a,b, result;
 
     initial
         begin
@@ -28,6 +19,8 @@ module test_fp_multiplier;
             // -ve Equal case
             a = 32'b10111111010000000000000000000000;
             b = 32'b10111111010000000000000000000000;
+
+            FloatingPointMultiplier.FPMultiplier(a, b, result);
 
             #2;$finish;
         end

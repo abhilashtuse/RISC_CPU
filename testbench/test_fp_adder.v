@@ -1,15 +1,6 @@
+//`include "../src/FloatingPointAdder.v"
 module test_fp_adder;
-    reg clk;
-
-    reg[31:0] a,b;
-    wire[31:0] result;
-    FloatingPointAdder fp_adder (.clk(clk), .a(a), .b(b), .result(result));
-
-    initial
-        begin
-            clk = 1;
-            forever #1 clk= !clk;
-        end
+    reg[31:0] a, b, result;
 
     initial
         begin
@@ -29,6 +20,7 @@ module test_fp_adder;
             a = 32'b10111111010000000000000000000000;
             b = 32'b10111111010000000000000000000000;
 
+            FloatingPointAdder.FPAdder(a, b, result);
             #2;$finish;
         end
 

@@ -11,7 +11,7 @@ module RegisterFile (DOut1,DOut2, Ain1,Ain2,Ain3,Din, WE, clk, reset);
   begin
     DOut1 = 0;
     DOut2 = 0;
-    $readmemb("reg_file.txt", RegisterMemory, 0, 10);
+    $readmemb("reg_file.txt", RegisterMemory, 0, 12);
   end
 
   always @(posedge clk or posedge reset)

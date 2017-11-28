@@ -45,6 +45,7 @@ module CPUDataPath(clk, reset);
                 RD <= 0;
                 Imm <= 0;
                 RFDin <= 0;
+                PcBra <= 0;
 
             //ALU stage
                 Q1 <= 0;
@@ -87,9 +88,7 @@ module CPUDataPath(clk, reset);
                 if(OPC == 4 || OPC == 5 || OPC == 15 ||
                     OPC == 17 || OPC == 18 || OPC == 19 ||
                     OPC == 20 || OPC == 16)
-
                     Q5 <= RS2;
-
                 else
                     Q5 <= RD;
 
@@ -152,6 +151,7 @@ module CPUDataPath(clk, reset);
                                 RFDin <= Q8; //SLI/SRI/ADDI/SUBI
                             end
                     21,22:;// bra/Jump
+                    23,24: RFDin <= Q8; //ADDF, MULF
                 endcase
 
             end

@@ -6,9 +6,7 @@ module ProgramCounter(PcOut, PcBra, clk, reset, select);
 
 initial
   begin
-    //PcOut = 0;
     PcIn = 0;
-    //PcNext = 0;
 end
 
 always @*

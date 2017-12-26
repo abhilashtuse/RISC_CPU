@@ -1,7 +1,7 @@
 # RISC_CPU
 Five-stage 32-bit pipelined RISC CPU implementation
-•	The five stages are: Instruction Fetch (IF), Register File (RF), ALU (A), Data Memory (DM) and Write Back (WB).
-•	Fixed-point ALU instructions: 15 register to register type, 5 immediate type, data movement and program control.
+The five stages are: Instruction Fetch (IF), Register File (RF), ALU (A), Data Memory (DM) and Write Back (WB).
+Fixed-point ALU instructions: 15 register to register type, 5 immediate type, data movement and program control.
 1. NOP
 2. ADD
 3. SUB
@@ -26,6 +26,6 @@ Five-stage 32-bit pipelined RISC CPU implementation
 22. JUMP
 23. BRA
 
-•	Floating-point ALU instructions:
+Floating-point ALU instructions:
 1. ADDF
 2. MULF
